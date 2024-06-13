@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 
 
-namespace Fraction
+namespace Fractions
 {
     internal class Fraction
     {
@@ -37,23 +37,23 @@ namespace Fraction
             }
             Denominator = denominator;
         }
-        private int NCD()
+        private int NCD(int Num, int Den)
         {
-            if (Numerator == 0) return 1;
-            while (Numerator != 0 && Denominator != 0)
+            if (Num == 0) return 1;
+            while (Numerator != 0 && Den != 0)
             {
-                if (Math.Abs(Numerator) > (Math.Abs(Denominator))
-                        Numerator = (Math.Abs(Numerator) % (Math.Abs(Denominator);
+                if (Math.Abs(Num) > (Math.Abs(Den)))
+                        Num= (Math.Abs(Num) % (Math.Abs(Den)));
                 else
-                    Denominator = Math.Abs(Denominator) % Math.Abs(Numerator);
+                    Den = Math.Abs(Den) % Math.Abs(Num);
             }
-            return Math.Abs(Denominator + Numerator);
+            return Math.Abs(Den + Num);
 
         }
         //Метод Simplify(), который упрощает дробь (например, дробь 4/8 упрощается до 1/2).
         public void Simplify()
         {
-            int nsd = NCD();
+            int nsd = NCD(Numerator, Denominator);
             if (nsd > 0)
             {
                 Numerator /= nsd;
@@ -73,14 +73,14 @@ namespace Fraction
         public static Fraction operator +(Fraction c1, Fraction c2)
         {
             Fraction drib = new Fraction(c1.Numerator * c2.Denominator + c2.Numerator * c1.Denominator, c1.Denominator * c2.Denominator);
-            
+            drib.Simplify();
             return drib;
         }
 
         public static Fraction operator -(Fraction c1, Fraction c2)
         {
             Fraction drib = new Fraction(c1.Numerator * c2.Denominator - c2.Numerator * c1.Denominator, c1.Denominator * c2.Denominator);
-            //Simplify();
+            drib.Simplify();
             return drib;
         }
 
@@ -90,15 +90,18 @@ namespace Fraction
 
         public static Fraction operator *(Fraction c1, Fraction c2)
         {
-            return  new Fraction(c1.Numerator * c2.Numerator , c1.Denominator * c2.Denominator);
+            Fraction drib = new Fraction(c1.Numerator * c2.Numerator , c1.Denominator * c2.Denominator);
+            drib.Simplify();
+            return drib;
 
         }
 
         public static Fraction operator /(Fraction c1, Fraction c2)
         {
-            return new Fraction(c1.Numerator * c2.Denominator, c1.Denominator * c2.Numerator);
-            //Simplify();
-            
+            Fraction drib = new Fraction(c1.Numerator * c2.Denominator, c1.Denominator * c2.Numerator);
+            drib.Simplify();
+            return drib;
+
         }
 
 
